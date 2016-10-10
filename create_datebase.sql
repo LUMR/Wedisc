@@ -18,6 +18,3 @@ create table body
 	message text
 	);
 
-#grant select,insert,update,delete
-#on discussion.*
-#to webuse@localhost;
