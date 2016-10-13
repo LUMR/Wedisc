@@ -11,4 +11,21 @@
 		}
 	}
 
+	function get_post($postid){
+	// extract one post from the database and return as an array
+		if (!$postid) {
+			return false;
+		}
+		$conn = db_connect();
+	// get all header information from 'header'
+		$query = "select * from header where postid = \"$postid\"";
+		$result2 = $conn->query($query);
+		if ($result2->num_rows>0) {
+			$body = $result2->query->fetch_assoc();
+			if ($body) {
+				$post['message'] = $body['message'];
+			}
+		}
+		return $post;
+	}
  ?>
