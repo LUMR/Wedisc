@@ -28,4 +28,44 @@
 		}
 		return $post;
 	}
+
+	function get_post_title($postid){
+		// extract one post's name from the database
+		if (!$postid) {
+			return "";
+		}
+
+		$conn = db_connect();
+
+		// get all header information from 'header'
+		$query = "select title from header where postid = \"$postid\"";
+		$result = $conn->query($query);
+		if ($result->num_rows != 1) {
+			return '';
+		}
+		$this_row = $result->fetch_row();
+		return $this_row[0];
+	}
+
+	function get_post_message($postid){
+		// extract one post's message from the database
+		if (!$postid) {
+			return '';
+		}
+
+		$conn = db_connect();
+
+		$query = "select message from body where postid = \"$postid\"";
+		$result = $conn->query($query);
+
+		if ($result->num_rows >0) {
+			$this_row = $result->fetch_row();
+			return $this_row;
+		}
+	}
+
+	function add_quoting($string,$patten = '>'){
+		// add a quoting pattern to mark text quoted in your reply
+		return $pattern.str_replace("\n", "\n$pattern", $string);
+	}
  ?>
