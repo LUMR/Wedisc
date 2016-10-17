@@ -68,4 +68,83 @@
 		// add a quoting pattern to mark text quoted in your reply
 		return $pattern.str_replace("\n", "\n$pattern", $string);
 	}
+
+	function store_new_post($post){
+		// validate clean and store a new post
+
+	$conn = db_connect();
+	// check no fields are blank
+	if (!filled_out($post)) {
+		return false;
+	}
+	$post = clean_all($post);
+
+	// check parent exists
+	if ($post['parent'] != 0) {
+		$query = "select postid from header wher postid = \"".$post['parent']."\"";
+		$result = $conn->query($query);
+		if ($result->num_rows !=1) {
+			return false;
+		}
+	}
+
+	// check not a duplicate
+	$query = "select header.postid from header,body where
+			  header.postid = body.postid and
+			  header.parent = '".$psot['parent']."' and
+			  header.poster= '".$post['poster']."'and
+			  header.title = '".$post['title']."'and
+			  header.area = '".$post['area']."'and
+			  body.message = '".$post['message']."'";
+
+	$result = $conn->query($query);
+	check_db_err($conn);
+
+	if ($result->num_rows>0) {
+		$this_row = $result->fetch_array();
+		return $this_row[0];
+	}
+
+	$query = "insert into header values 
+			  ('".$post['parent']."',
+			  '".$post['poster']."',
+			  '".$post['title']."',
+			  0,
+			  '".$post['area']."',
+			  now(),
+			  NULL)";
+
+	$result = $conn->query($query);
+	check_db_err($conn);
+
+	// note that our parent now has a child
+	$query = "update header set children = 1 where postid = '".$post['parent']."'";
+	$result = $conn->query($query);
+	check_db_err($conn);
+
+	// find our post id,note that there could be multiple headers
+	// that are the same excpt for id and probably posted time
+	$query = "select header.postid from header left join body
+			  on header.postid = body.postid
+			  where parent = '".$post['parent']."'
+			  	and poster = '".$post['poster']."'
+			  	and title = '".$post['title']."'
+			  	and body.postid is NULL";
+
+	$result = $conn->query($query);
+	check_db_err($conn);
+
+	if ($result->num_rows>0) {
+		$this_row = $result->fetch_array();
+		$id = $this_row[0];
+	}
+
+	if ($id) {
+		$query = "insert into body values
+					($id,'".$post['message']."')";
+		$result = $conn->query($query);
+		check_db_err($conn);
+		return $id;
+	}
+}
  ?>
