@@ -2,7 +2,7 @@
 	function display_tree($expanded,$row = 0,$start = 0){
 		// display the tree view of conversations
 	global $table_width;
-	echo "<table width="$table_width">";
+	echo "<table width=\"$table_width\">";
 
 	// see if we are displaying the whole list or a sublist
 	$sublist = ($start>0) ? true : false ;
@@ -32,5 +32,9 @@
 	<img src=\"./images/footer.png\">
 	</body>
 	</html>";
+	}
+
+	function display_index_toolbar(){
+		echo "<p>ToolBar</p>";
 	}
  ?>

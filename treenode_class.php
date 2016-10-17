@@ -9,7 +9,7 @@ class treenode
 {
 	// each node in the tree has member variables containing
 	// all the data for a post except the body of the message
-	public function __construct($postid,$title,$poster,$posted,$children,$expand,$depth,$expended,$sublist)
+	public function __construct($postid,$title,$poster,$posted,$children,$expand,$depth,$expanded,$sublist)
 	{
 		// this constructor sets up the member variables,but more
 		// importantly recurisively creates lower parts of the tree
@@ -24,14 +24,14 @@ class treenode
 		// we only care what is below this node if it
 		// has children and is marked to be expanded
 		// sublists are always expended
-		if (($sublist || $expend) && $children) {
-			$conn = $db_connect();
-			$query = "select * from header where parent="$postid" order by posted";
+		if (($sublist || $expand) && $children) {
+			$conn = db_connect();
+			$query = "select * from header where parent=\"$postid\" order by posted";
 			$reslut = $conn->query($query);
 
 			for ($conut=0; $row = @$reslut->fetch_assoc(); $conut++) { 
 				$expand = ($sublist || $expanded[$row['postid']] == true) ? true : false;
-				this->m_childlist[$count] = new treenode($row['postid'],$row['title'],$row['poster'],$row['posted'],$row['children'],$expend,$depth+1,$expanded,$sublist);
+				$this->m_childlist[$count] = new treenode($row['postid'],$row['title'],$row['poster'],$row['posted'],$row['children'],$expand,$depth+1,$expanded,$sublist);
 			}
 		}
 	}
@@ -82,7 +82,7 @@ class treenode
 		// call display on each of this node's children
 		// note a node will only have children in its list if expanded
 		$num_children = sizeof($this->m_childlist);
-		for ($i=0; $i < $num_children); $i++) { 
+		for ($i=0; $i < $num_children; $i++) { 
 			$row = $this->m_childlist[$i]->display($row,$sublist);
 		}
 		return $row;
