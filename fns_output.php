@@ -15,4 +15,22 @@
 	echo "</table>";
 	}
 
+	function do_html_header($title){
+	echo "
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>$title</title>
+	</head>
+	<body>
+	<h1>Wecome To Discussion</h1>
+	<img name=\"header\" src=\"./images/kokomi.png\">";
+	}
+
+	function do_html_footer(){
+	echo "
+	<img src=\"./images/footer.png\">
+	</body>
+	</html>";
+	}
  ?>
