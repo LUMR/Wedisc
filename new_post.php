@@ -1,9 +1,9 @@
 <?php 
 include('fns_include.php');
 
-$title = $_POST['title'];
-$poster = $_POST['poster'];
-$message = $_POST['message'];
+@$title = $_POST['title'];
+@$poster = $_POST['poster'];
+@$message = $_POST['message'];
 
 if (isset($_GET['parent'])) {
 	$parent = $_GET['parent'];
