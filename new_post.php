@@ -12,11 +12,11 @@ else{
 	$parent = $_POST['parent'];
 }
 
-if (!$area) {
+if (!isset($area)) {
 	$area = 1;
 }
 
-if (!$error) {
+if (!isset($error)) {
 	if (!$parent) {
 		$parent = 0;
 		if (!$title) {
