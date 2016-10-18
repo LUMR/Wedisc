@@ -20,16 +20,18 @@
 	<!DOCTYPE html>
 	<html>
 	<head>
+		<link rel=\"stylesheet\" type=\"text/css\" href=\"web_style.css\">
 		<title>$title</title>
 	</head>
 	<body>
 	<h1>Wecome To Discussion</h1>
-	<img name=\"header\" src=\"./images/kokomi.png\">";
+	<img id=\"img_header\" src=\"./images/kokomi.jpg\">";
 	}
 
 	function do_html_footer(){
 	echo "
-	<img src=\"./images/footer.png\">
+	<hr>
+	<b>LUMR<b>
 	</body>
 	</html>";
 	}
@@ -38,9 +40,9 @@
 		echo "
 		<div class=\"ToolBar\">
  		<hr>
- 		<a href=\"view_post.php?postid=0\"><input type=\"button\" name=\"new_post\" value=\"New Post\"></a>
- 		<a href=\"index.php?expand=all\"><input type=\"button\" name=\"expand\" value=\"Expand\"></a>
- 		<a href=\"index.php?collapse=all\"><input type=\"button\" name=\"collapse\" value=\"Collapse\"></a>
+ 		<a href=\"view_post.php?postid=0\"><input type=\"button\" id=\"new_post\" value=\"New Post\"></a>
+ 		<a href=\"index.php?expand=all\"><input type=\"button\" id=\"expand\" value=\"Expand\"></a>
+ 		<a href=\"index.php?collapse=all\"><input type=\"button\" id=\"collapse\" value=\"Collapse\"></a>
  		<hr>
  		</div>";
 	}
