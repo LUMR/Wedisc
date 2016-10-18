@@ -35,6 +35,13 @@
 	}
 
 	function display_index_toolbar(){
-		echo "<p>ToolBar</p>";
+		echo "
+		<div class=\"ToolBar\">
+ 		<hr>
+ 		<a href=\"view_post.php?postid=0\"><input type=\"button\" name=\"new_post\" value=\"New Post\"></a>
+ 		<a href=\"index.php?expand=all\"><input type=\"button\" name=\"expand\" value=\"Expand\"></a>
+ 		<a href=\"index.php?collapse=all\"><input type=\"button\" name=\"collapse\" value=\"Collapse\"></a>
+ 		<hr>
+ 		</div>";
 	}
  ?>
