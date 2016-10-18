@@ -64,7 +64,7 @@
 		<td><input type=\"text\" name=\"title\" value=\"$title\"></td>
 	</tr>
 	<tr>
-		<td>
+		<td colspan=\"2\">
 			<textarea>$message</textarea>
 		</td>
 	</tr>

@@ -12,11 +12,11 @@ else{
 	$parent = $_POST['parent'];
 }
 
-if (!$area) {
+if (@!$area) {
 	$area = 1;
 }
 
-if (!$error) {
+if (@!$error) {
 	if (!$parent) {
 		$parent = 0;
 		if (!$title) {
@@ -40,7 +40,7 @@ do_html_header($title);
 
 display_new_post_form($parent,$area,$title,$message,$poster);
 
-if ($error) {
+if (@$error) {
 	echo "<p>Your message was not stored.</p>
 		  <p>Make sure you have filled in all fields and try again.</p>";
 }
