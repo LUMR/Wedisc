@@ -1,2 +1,5 @@
 #img_header {width: 50%;height: 50%;float: left;}
 #img_footer {width: 30%;}
+
+#post_form textarea {width: 100%;min-height: 300px;}
+#post_form table {width: 300px;}

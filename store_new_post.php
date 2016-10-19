@@ -4,8 +4,8 @@
 		include('index.php');
 	}
 	else{
-		$error = true;
-		include('new_post.php')
+		// $error = true;
+		include('new_post.php');
 	}
 
 ?>

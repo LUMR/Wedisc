@@ -41,7 +41,7 @@ do_html_header($title);
 display_new_post_form($parent,$area,$title,$message,$poster);
 
 if (@$error) {
-	echo "<p>Your message was not stored.</p>
+	echo "<p>Your message was not stored.$error</p>
 		  <p>Make sure you have filled in all fields and try again.</p>";
 }
 

@@ -54,6 +54,8 @@
 	function display_new_post_form($parent,$area,$title,$message,$poster){
 		echo "
 <form id=\"post_form\" method=\"post\" action=\"store_new_post.php\">
+<input type=\"hidden\" name=\"parent\" value=\"$parent\" readonly>
+<input type=\"hidden\" name=\"area\" value=\"$area\" readonly>
 <table>
 	<tr>
 		<td>Name</td>
@@ -65,7 +67,7 @@
 	</tr>
 	<tr>
 		<td colspan=\"2\">
-			<textarea>$message</textarea>
+			<textarea name=\"message\">$message</textarea>
 		</td>
 	</tr>
 	<tr>

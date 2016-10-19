@@ -70,15 +70,17 @@
 	}
 
 	function filled_out($post){
+		$error = '';
 		foreach ($post as $key => $value) {
-			if (!isset($post[$key])) {
-				$error .= ",$key";
+			if ($post[$key] == '') {
+				$error .= "$key,";
 			}
 		}
 		if ($error) {
 			echo "The $error have not filled.";
 			return false;
 		}
+		return true;
 	}
 
 	function clean_all($post){
@@ -88,14 +90,12 @@
 
 	function store_new_post($post){
 		// validate clean and store a new post
-
 	$conn = db_connect();
 	// check no fields are blank
 	if (!filled_out($post)) {
 		return false;
 	}
 	$post = clean_all($post);
-
 	// check parent exists
 	if ($post['parent'] != 0) {
 		$query = "select postid from header wher postid = \"".$post['parent']."\"";
@@ -108,15 +108,14 @@
 	// check not a duplicate
 	$query = "select header.postid from header,body where
 			  header.postid = body.postid and
-			  header.parent = '".$psot['parent']."' and
+			  header.parent = '".$post['parent']."' and
 			  header.poster= '".$post['poster']."'and
 			  header.title = '".$post['title']."'and
 			  header.area = '".$post['area']."'and
 			  body.message = '".$post['message']."'";
 
 	$result = $conn->query($query);
-	check_db_err($conn);
-
+	check_db_err($result);
 	if ($result->num_rows>0) {
 		$this_row = $result->fetch_array();
 		return $this_row[0];
@@ -138,7 +137,8 @@
 	$query = "update header set children = 1 where postid = '".$post['parent']."'";
 	$result = $conn->query($query);
 	check_db_err($conn);
-
+// check to here*******************************
+	// ****************************************
 	// find our post id,note that there could be multiple headers
 	// that are the same excpt for id and probably posted time
 	$query = "select header.postid from header left join body
