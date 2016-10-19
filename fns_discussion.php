@@ -69,6 +69,23 @@
 		return $pattern.str_replace("\n", "\n$pattern", $string);
 	}
 
+	function filled_out($post){
+		foreach ($post as $key => $value) {
+			if (!isset($post[$key])) {
+				$error .= ",$key";
+			}
+		}
+		if ($error) {
+			echo "The $error have not filled.";
+			return false;
+		}
+	}
+
+	function clean_all($post){
+		// 这函数不知拿来干嘛
+		return $post;
+	}
+
 	function store_new_post($post){
 		// validate clean and store a new post
 
