@@ -1,6 +1,7 @@
 <?php 
 // include function libraries
 	include('fns_include.php');
+	session_start();
 	$postid = $_GET['postid'];
 	// get postid detail
 	$post = get_post($postid);

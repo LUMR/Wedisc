@@ -67,13 +67,13 @@
 
 		if ($result->num_rows >0) {
 			$this_row = $result->fetch_row();
-			return $this_row;
+			return $this_row[0];
 		}
 	}
 
 	function add_quoting($string,$patten = '>'){
 		// add a quoting pattern to mark text quoted in your reply
-		return $pattern.str_replace("\n", "\n$pattern", $string);
+		return $patten.str_replace("\n", "\n$patten", $string);
 	}
 
 	function filled_out($post){
@@ -105,9 +105,10 @@
 	$post = clean_all($post);
 	// check parent exists
 	if ($post['parent'] != 0) {
-		$query = "select postid from header wher postid = \"".$post['parent']."\"";
+		$query = "select postid from header where postid = \"".$post['parent']."\"";
 		$result = $conn->query($query);
-		if ($result->num_rows !=1) {
+		check_db_err($result,$conn);
+		if ($result->num_rows != 1) {
 			return false;
 		}
 	}
@@ -122,7 +123,7 @@
 			  body.message = '".$post['message']."'";
 
 	$result = $conn->query($query);
-	check_db_err($result);
+	check_db_err($result,$result);
 	if ($result->num_rows>0) {
 		$this_row = $result->fetch_array();
 		return $this_row[0];
@@ -138,12 +139,12 @@
 			  NULL)";
 
 	$result = $conn->query($query);
-	check_db_err($conn);
+	check_db_err($result,$conn);
 
 	// note that our parent now has a child
 	$query = "update header set children = 1 where postid = '".$post['parent']."'";
 	$result = $conn->query($query);
-	check_db_err($conn);
+	check_db_err($result,$conn);
 // check to here*******************************
 	// ****************************************
 	// find our post id,note that there could be multiple headers
@@ -156,7 +157,7 @@
 			  	and body.postid is NULL";
 
 	$result = $conn->query($query);
-	check_db_err($conn);
+	check_db_err($result,$conn);
 
 	if ($result->num_rows>0) {
 		$this_row = $result->fetch_array();
@@ -167,7 +168,7 @@
 		$query = "insert into body values
 					($id,'".$post['message']."')";
 		$result = $conn->query($query);
-		check_db_err($conn);
+		check_db_err($result,$conn);
 		return $id;
 	}
 }

@@ -40,11 +40,12 @@
 		return $date;
 	}
 
-	function display_index_toolbar(){
+	function display_index_toolbar($parent = 0){
+		$value = ($parent == 0)?"New Post":"Reply";
 		echo "
 		<div class=\"ToolBar\">
  		<hr>
- 		<a href=\"new_post.php?parent=0\"><input type=\"button\" id=\"new_post\" value=\"New Post\"></a>
+ 		<a href=\"new_post.php?parent=$parent\"><input type=\"button\" id=\"new_post\" value=$value></a>
  		<a href=\"index.php?expand=all\"><input type=\"button\" id=\"expand\" value=\"Expand\"></a>
  		<a href=\"index.php?collapse=all\"><input type=\"button\" id=\"collapse\" value=\"Collapse\"></a>
  		<hr>
@@ -80,20 +81,24 @@
 
 
 	function display_post($post){
+		display_index_toolbar($post['postid']);
 	// 显示文章的格式
 		echo "
-<table>
+<table class=\"post\">
 	<tr>
-		<th><b>".$post['title']."</b></th><td align=\"left\">."$post['poted']."</td>
+		<th><b>".$post['title']."</b></th><th align=\"left\">".$post['posted']."</th>
 	</tr>
 	<tr>
-		<td><span>."$post['poster']."</span></td>
+		<td>".$post['poster'].":</td>
 	</tr>
 	<tr>
-		<td colspan="2">."$post['message']."</td>
+		<td colspan=\"2\">".$post['message']."</td>
 	</tr>
 
 </table>
 		";
+	}
+	function display_replies_line(){
+		echo "<hr>";
 	}
  ?>
