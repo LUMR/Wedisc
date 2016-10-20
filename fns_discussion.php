@@ -123,7 +123,7 @@
 			  body.message = '".$post['message']."'";
 
 	$result = $conn->query($query);
-	check_db_err($result,$result);
+	check_db_err($result,$conn);
 	if ($result->num_rows>0) {
 		$this_row = $result->fetch_array();
 		return $this_row[0];
