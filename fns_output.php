@@ -5,7 +5,7 @@
 	echo "<table width=\"$table_width\">";
 
 	// see if we are displaying the whole list or a sublist
-	$sublist = ($start>0) ? true : false ;
+	$sublist = ($start>0)?true:false;
 
 	// contruct tree structure to represent conversation summary
 	$tree = new treenode($start,'','','',1,true,-1,$expanded,$sublist);
@@ -34,6 +34,10 @@
 	<b>LUMR<b>
 	</body>
 	</html>";
+	}
+
+	function reformat_date($date){
+		return $date;
 	}
 
 	function display_index_toolbar(){

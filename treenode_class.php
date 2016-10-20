@@ -28,9 +28,8 @@ class treenode
 			$conn = db_connect();
 			$query = "select * from header where parent=\"$postid\" order by posted";
 			$reslut = $conn->query($query);
-
-			for ($conut=0; $row = @$reslut->fetch_assoc(); $conut++) { 
-				$expand = ($sublist || $expanded[$row['postid']] == true) ? true : false;
+			for ($count=0; $row = $reslut->fetch_assoc(); $count++) { 
+				$expand = ($sublist || @$expanded[$row['postid']] == true) ;
 				$this->m_childlist[$count] = new treenode($row['postid'],$row['title'],$row['poster'],$row['posted'],$row['children'],$expand,$depth+1,$expanded,$sublist);
 			}
 		}

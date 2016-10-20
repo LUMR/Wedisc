@@ -18,10 +18,17 @@
 		}
 		$conn = db_connect();
 	// get all header information from 'header'
-		$query = "select * from header where postid = \"$postid\"";
+		$query = "select * from header where postid =\"$postid\"";
+		$result1 = $conn->query($query);
+		if ($result1->num_rows>0) {
+			$post = $result1->fetch_assoc();
+		}
+
+	// get all header information from 'body'
+		$query = "select * from body where postid = \"$postid\"";
 		$result2 = $conn->query($query);
 		if ($result2->num_rows>0) {
-			$body = $result2->query->fetch_assoc();
+			$body = $result2->fetch_assoc();
 			if ($body) {
 				$post['message'] = $body['message'];
 			}
