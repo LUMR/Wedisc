@@ -51,10 +51,6 @@
  		</div>";
 	}
 
-	function display_post($post){
-	// 待编写
-	}
-
 	function display_new_post_form($parent,$area,$title,$message,$poster){
 		echo "
 <form id=\"post_form\" method=\"post\" action=\"store_new_post.php\">
@@ -79,6 +75,25 @@
 	</tr>
 </table>
 </form>
+		";
+	}
+
+
+	function display_post($post){
+	// 显示文章的格式
+		echo "
+<table>
+	<tr>
+		<th><b>".$post['title']."</b></th><td align=\"left\">."$post['poted']."</td>
+	</tr>
+	<tr>
+		<td><span>."$post['poster']."</span></td>
+	</tr>
+	<tr>
+		<td colspan="2">."$post['message']."</td>
+	</tr>
+
+</table>
 		";
 	}
  ?>
