@@ -57,19 +57,19 @@ class treenode
 			}
 			// indent replies to the depth of nesting
 			for ($i=0; $i < $this->m_depth; $i++) { 
-				echo "<img src=\"images/spacer.gif\" height=\"22\" width=\"22\" alt=\"\" valign=\"buttom\"/>";
+				echo "<img src=\"images/spacer.gif\" height=\"22\" width=\"22\" alt=\"\" valign=\"button\"/>";
 			}
 
 			// display + or - or a spacer
 			if ((!$sublist) && ($this->m_children) && (sizeof($this->m_childlist))) {
 				// we're on the main page,have some children,and they're expanded
-				// we are expanded - offer buttom to collapse
+				// we are expanded - offer button to collapse
 				echo "<a href=\"index.php?collapse".$this->m_postid."#".$this->m_postid."\">
-					<img src=\"images/plus.gif\" valign=\"buttom\" height=\"22\" width=\"22\" alt=\"Expand Thread\" border=\"0\"/></a>\n";
+					<img src=\"images/plus.gif\" valign=\"button\" height=\"22\" width=\"22\" alt=\"Expand Thread\" border=\"0\"/></a>\n";
 			}
 			else{
 				// we have no children,or are in a sublist,do not give button
-				echo "<img src=\"images/spacer.gif\" height=\"22\" width=\"22\" alt=\"\" valign=\"buttom\"/>\n";
+				echo "<img src=\"images/spacer.gif\" height=\"22\" width=\"22\" alt=\"\" valign=\"button\"/>\n";
 			}
 
 			echo "<a name=\"".$this->m_postid."\"><a href=\"view_post.php?postid=".$this->m_postid."\">"
