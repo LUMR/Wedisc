@@ -69,7 +69,7 @@ class treenode
 			}
 			else if (!$sublist && $this->m_children){
 				// we are collapsed + offer button to expend
-				echo "<a href=\"index.php?expend=".$this->m_postid."#".$this->m_postid."\">
+				echo "<a href=\"index.php?expand=".$this->m_postid."#".$this->m_postid."\">
 					<img src=\"images/plus.gif\" valign=\"buttom\" height=\"22\" width=\"22\" alt=\"Expand Thread\" border=\"0\"/></a>\n";
 			}
 			else{
