@@ -10,7 +10,7 @@
 	// check if an expand button was passed
 	// expand might equal 'all' or a positid or not be set
 	if (isset($_GET['expand'])) {
-		if ($_GET['expand'] == "ALL") {
+		if ($_GET['expand'] == "all") {
 			expand_all($_SESSION['expanded']);
 		}
 		else{

@@ -42,7 +42,7 @@ class treenode
 		// so we know that color it should be
 
 		// sublist tells us whether we are on the main page
-		// or the message page.Message pages should have $sublit = true.
+		// or the message page.Message pages should have $sublist = true.
 		// on a sublist,all messages are expanded and there are no "+" or "-" symbols.
 
 		// if this is the empty root node skip displaying
@@ -64,7 +64,12 @@ class treenode
 			if ((!$sublist) && ($this->m_children) && (sizeof($this->m_childlist))) {
 				// we're on the main page,have some children,and they're expanded
 				// we are expanded - offer buttom to collapse
-				echo "<a href=\"index.php?collapse".$this->m_postid."#".$this->m_postid."\">
+				echo "<a href=\"index.php?collapse=".$this->m_postid."#".$this->m_postid."\">
+					<img src=\"images/minus.gif\" valign=\"buttom\" height=\"22\" width=\"22\" alt=\"Expand Thread\" border=\"0\"/></a>\n";
+			}
+			else if (!$sublist && $this->m_children){
+				// we are collapsed + offer button to expend
+				echo "<a href=\"index.php?expend=".$this->m_postid."#".$this->m_postid."\">
 					<img src=\"images/plus.gif\" valign=\"buttom\" height=\"22\" width=\"22\" alt=\"Expand Thread\" border=\"0\"/></a>\n";
 			}
 			else{
