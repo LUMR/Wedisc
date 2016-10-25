@@ -16,6 +16,7 @@
 		display_replies_line();
 		display_tree($_SESSION['expanded'],0,$postid);
 	}
+	display_reply_form($post);
 
 	do_html_footer();
 ?>

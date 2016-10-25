@@ -2,7 +2,7 @@
 	function display_tree($expanded,$row = 0,$start = 0){
 		// display the tree view of conversations
 	global $table_width;
-	echo "<table width=\"$table_width\">";
+	echo "<table class=\"posts_table\">";
 
 	// see if we are displaying the whole list or a sublist
 	$sublist = ($start>0)?true:false;
@@ -40,14 +40,25 @@
 		return $date;
 	}
 
-	function display_index_toolbar($parent = 0){
-		$value = ($parent == 0)?"New Post":"Reply";
+	function display_index_toolbar($postid = 0){
+		if ($postid != 0) {
+			$button1 = "Reply";
+			$button2 = "Expand";
+			$button3 = "Home";
+			$button3_href = "";
+		}
+		else{
+			$button1 = "New Post";
+			$button2 = "Expand";
+			$button3 = "Collapse";
+			$button3_href = "?collapse=all";
+		}
 		echo "
 		<div class=\"ToolBar\">
  		<hr>
- 		<a href=\"new_post.php?parent=$parent\"><input type=\"button\" id=\"new_post\" value=$value></a>
- 		<a href=\"index.php?expand=all\"><input type=\"button\" id=\"expand\" value=\"Expand\"></a>
- 		<a href=\"index.php?collapse=all\"><input type=\"button\" id=\"collapse\" value=\"Collapse\"></a>
+ 		<a href=\"new_post.php?parent=$postid\"><input type=\"button\" id=\"new_post\" value=\"$button1\"></a>
+ 		<a href=\"index.php?expand=all\"><input type=\"button\" id=\"expand\" value=\"$button2\"></a>
+ 		<a href=\"index.php$button3_href\"><input type=\"button\" id=\"collapse\" value=\"$button3\"></a>
  		<hr>
  		</div>";
 	}
@@ -81,6 +92,7 @@
 
 
 	function display_post($post){
+		// 显示工具按钮
 		display_index_toolbar($post['postid']);
 	// 显示文章的格式
 		echo "
@@ -94,10 +106,33 @@
 	<tr>
 		<td colspan=\"2\">".$post['message']."</td>
 	</tr>
-
 </table>
 		";
 	}
+
+	function display_reply_form($post){
+		echo "
+<form action=\"reply_or_delete.php\" method=\"post\">
+	<input type=\"hidden\" name=\"parent\" value=\"".$post['postid']."\">
+	<input type=\"hidden\" name=\"title\" value=\"Re".$post['title']."\">
+	<input type=\"hid\" name=\"area\" value=\"1\">
+	<table>
+		<tr>
+			<td>Name:</td>
+			<td><input type=\"text\" name=\"name\"></td>
+		</tr>
+		<tr>
+			<td colspan=\"2\"><input type=\"textarea\" name=\"message\"></td>
+		</tr>
+		<tr>
+			<td><input type=\"submit\" name=\"Reply\" value=\"Reply\"></td>
+			<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
+		</tr>
+	</table>	
+</form>
+		";
+	}
+
 	function display_replies_line(){
 		echo "<hr>";
 	}

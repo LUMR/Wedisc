@@ -172,4 +172,26 @@
 		return $id;
 	}
 }
+
+	function delete_post($postid){
+		$conn =db_connect();
+		$query = "select postid from header where postid = $postid";
+		$result = $conn->query($query);
+		if ($result->num_rows == 0) {
+			echo "<b>There is no this postid!";
+			return false;
+		}
+		else{
+			$query = "select postid from header where parent = $postid";
+			$result1 = $conn->query($query);
+			for ($i=0;$row = $result1->fetch_row(); $i++) { 
+				$query = "delete from header,body where postid = ".$row[0];
+				$conn->query($query);
+			}
+			$query = "delete from header,body where postid = $postid";
+			$conn->query($query);
+			return true;
+		}
+
+	}
  ?>
