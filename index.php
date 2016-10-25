@@ -21,7 +21,7 @@
 	// check if a collapse button was pressed
 	// collapse maght equal all or a postid or not be set
 	if (isset($_GET['collapse'])) {
-		if (isset($_GET['collapse']) == 'all') {
+		if ($_GET['collapse'] == 'all') {
 			$_SESSION['expanded'] = array();
 		}
 		else{
