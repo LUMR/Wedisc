@@ -177,6 +177,7 @@
 		$conn =db_connect();
 		$query = "select postid from header where postid = $postid";
 		$result = $conn->query($query);
+		check_db_err($result,$conn);
 		if ($result->num_rows == 0) {
 			echo "<b>There is no this postid!";
 			return false;
@@ -185,11 +186,16 @@
 			$query = "select postid from header where parent = $postid";
 			$result1 = $conn->query($query);
 			for ($i=0;$row = $result1->fetch_row(); $i++) { 
-				$query = "delete from header,body where postid = ".$row[0];
+				$query = "delete from header where postid = ".$row[0];
+				$conn->query($query);
+				$query = "delete from body where postid = ".$row[0];
 				$conn->query($query);
 			}
-			$query = "delete from header,body where postid = $postid";
-			$conn->query($query);
+			$query = "delete from header where postid = $postid";
+			$result = $conn->query($query);
+			$query = "delete from body where postid = $postid";
+			$result = $conn->query($query);
+			check_db_err($result,$conn);
 			return true;
 		}
 

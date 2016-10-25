@@ -99,6 +99,7 @@
 <table class=\"post\">
 	<tr>
 		<th><b>".$post['title']."</b></th><th align=\"left\">".$post['posted']."</th>
+		<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
 	</tr>
 	<tr>
 		<td>".$post['poster'].":</td>
@@ -112,17 +113,17 @@
 
 	function display_reply_form($post){
 		echo "
-<form action=\"reply_or_delete.php\" method=\"post\">
+<form class=\"reply_form\" action=\"reply_or_delete.php\" method=\"post\">
 	<input type=\"hidden\" name=\"parent\" value=\"".$post['postid']."\">
 	<input type=\"hidden\" name=\"title\" value=\"Re".$post['title']."\">
-	<input type=\"hid\" name=\"area\" value=\"1\">
+	<input type=\"hidden\" name=\"area\" value=\"1\">
 	<table>
 		<tr>
 			<td>Name:</td>
-			<td><input type=\"text\" name=\"name\"></td>
+			<td><input type=\"text\" name=\"poster\"></td>
 		</tr>
 		<tr>
-			<td colspan=\"2\"><input type=\"textarea\" name=\"message\"></td>
+			<td colspan=\"2\"><textarea name=\"message\" width=\"100%\"></textarea></td>
 		</tr>
 		<tr>
 			<td><input type=\"submit\" name=\"Reply\" value=\"Reply\"></td>

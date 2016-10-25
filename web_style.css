@@ -4,3 +4,4 @@
 #post_form textarea {width: 100%;min-height: 300px;}
 #post_form table {width: 300px;}
 
+form.reply_form textarea {width: 100%;height: 200px;}
