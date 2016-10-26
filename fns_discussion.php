@@ -162,9 +162,6 @@
 	if ($result->num_rows>0) {
 		$this_row = $result->fetch_array();
 		$id = $this_row[0];
-	}
-
-	if ($id) {
 		$query = "insert into body values
 					($id,'".$post['message']."')";
 		$result = $conn->query($query);
