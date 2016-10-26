@@ -1,8 +1,9 @@
 <?php 
 	include('fns_include.php');
-	$post = $_POST['parent'];
+	$postid = $_POST['parent'];
 	do_html_header('Delete Post');
-	if (delete_post($post)) {
+	$tree = new treenode(0,'','','',1,true,-1,false,false);
+	if ($tree->delete($postid)) {
 		echo "<h1>Delete Successful!</h1>";
 	}
 	else{

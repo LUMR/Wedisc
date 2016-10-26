@@ -91,7 +91,49 @@ class treenode
 		}
 		return $row;
 	}
+
+	function delete($postid){
+		$conn =db_connect();
+		$query = "select header.postid from header,body where header.postid = $postid
+				  and header.postid = body.postid";
+		$result = $conn->query($query);
+		check_db_err($result,$conn);
+		if ($result->num_rows == 0) {
+			echo "<b>There is no this postid!</b>";
+			return false;
+		}
+		else{
+			$query = "delete from header where postid = $postid";
+			$result = $conn->query($query);
+			check_db_err($result,$conn);
+			$query = "delete from body where postid = $postid";
+			$result = $conn->query($query);
+			check_db_err($result,$conn);
+			$query = "select postid from header where parent = $postid order by posted";
+			$result = $conn->query($query);
+			if ($result->num_rows>0) {
+				for ($i=0; $row = $result->fetch_assoc(); $i++) { 
+					delete($row['postid']);
+					// unset($this->children[$i]);
+				}
+			}
+			return true;
+			// $query = "select postid from header where parent = $postid";
+			// $result1 = $conn->query($query);
+			// for ($i=0;$row = $result1->fetch_row(); $i++) { 
+			// 	$query = "delete from header where postid = ".$row[0];
+			// 	$conn->query($query);
+			// 	$query = "delete from body where postid = ".$row[0];
+			// 	$conn->query($query);
+			// }
+			// $query = "delete from header where postid = $postid";
+			// $result = $conn->query($query);
+			// $query = "delete from body where postid = $postid";
+			// $result = $conn->query($query);
+			// check_db_err($result,$conn);
+			// return true;
+		}
+
+	}
 }
-
-
  ?>
