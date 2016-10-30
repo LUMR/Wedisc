@@ -78,7 +78,7 @@ class treenode
 			}
 
 			echo "<a name=\"".$this->m_postid."\"><a href=\"view_post.php?postid=".$this->m_postid."\">"
-				.$this->m_title."-".$this->m_poster."-".reformat_date($this->m_posted)."</a></td></tr>";
+				.$this->m_title."</a></td><td>".$this->m_poster."</td><td>".reformat_date($this->m_posted)."</td></tr>";
 
 			// increment row counter to alternate colors
 			$row++;

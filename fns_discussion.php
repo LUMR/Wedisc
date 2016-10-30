@@ -171,7 +171,7 @@
 }
 
 	function delete_post($postid){
-		$conn =db_connect();
+		$conn = db_connect();
 		$query = "select postid from header where postid = $postid";
 		$result = $conn->query($query);
 		check_db_err($result,$conn);
@@ -195,6 +195,23 @@
 			check_db_err($result,$conn);
 			return true;
 		}
+	}
+
+	function get_child_post($postid){
+		$conn = db_connect();
+		$query = "select postid from header where parent = $postid";
+		$result = $conn->query($query);
+		check_db_err($result,$conn);
+		if ($result->num_rows>0) {
+			for ($i=0; $row = $result->fetch_row(); $i++) { 
+				$post[$i] = $row[0];
+			}
+			return $post;
+		}
+		else{
+			return false;
+		}
 
 	}
+
  ?>
