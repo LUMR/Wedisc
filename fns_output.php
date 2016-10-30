@@ -93,19 +93,23 @@
 
 	function display_post($post,$deth = 0,$floor_num = 0){
 		// 显示工具按钮
-		display_index_toolbar($post['postid']);
-		$floor = ($deth >= 1) ? "楼主" : "$floor_num 楼" ;
+		if ($deth == 0) {
+			display_index_toolbar($post['postid']);
+		}
+		$floor = ($deth == 0) ? "楼主" : "$floor_num 楼";
+		$padding = $deth*25;
 	// 显示文章的格式
 		echo "
-<table class=\"post\" style=\"position:relative;left:-".$deth*10."px\">
+<table class=\"post\" style=\"position:relative;left:".$padding."px;\">
 	<tr>
 		<td><b>$floor:".$post['poster']."</b></td>
 	</tr>
-		<th><b>".$post['title']."</b></th><th align=\"left\">".$post['posted']."</th>
+		<th>".$post['title']."</th>
+		<th>".$post['posted']."</th>
 		<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
 	</tr>
 	<tr>
-		<td colspan=\"2\">".$post['message']."</td>
+		<td colspan=\"3\">".$post['message']."</td>
 	</tr>
 </table>
 		";
@@ -147,4 +151,3 @@
 		echo "<hr>";
 	}
  ?>
-<table ></table>

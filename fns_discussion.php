@@ -197,7 +197,7 @@
 		}
 	}
 
-	function get_child_post($postid){
+	function get_children_post($postid){
 		$conn = db_connect();
 		$query = "select postid from header where parent = $postid";
 		$result = $conn->query($query);
