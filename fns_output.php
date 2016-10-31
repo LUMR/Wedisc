@@ -104,9 +104,15 @@
 	<tr>
 		<td><b>$floor:".$post['poster']."</b></td>
 	</tr>
+	<tr>
 		<th>".$post['title']."</th>
 		<th>".$post['posted']."</th>
-		<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
+		<td>
+		<form class=\"delete_form\" action=\"reply_or_delete.php\" method=\"post\">
+		<input type=\"hidden\" value=\"".$post['postid']."\" name=\"postid\">
+		<input type=\"submit\" name=\"Delete\" value=\"Delete\">
+		</form>
+		</td>
 	</tr>
 	<tr>
 		<td colspan=\"3\">".$post['message']."</td>
@@ -140,7 +146,6 @@
 		</tr>
 		<tr>
 			<td><input type=\"submit\" name=\"Reply\" value=\"Reply\"></td>
-			<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
 		</tr>
 	</table>	
 </form>
