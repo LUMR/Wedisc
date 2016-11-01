@@ -172,7 +172,7 @@
 
 	function delete_post($postid){
 		$conn = db_connect();
-		$query = "select postid from header where postid = $postid";
+		$query = "select * from header where postid = $postid";
 		$result = $conn->query($query);
 		check_db_err($result,$conn);
 		if ($result->num_rows == 0) {
@@ -180,6 +180,8 @@
 			return false;
 		}
 		else{
+			$post = $result->fetch_assoc();
+			// delete children post
 			$query = "select postid from header where parent = $postid";
 			$result1 = $conn->query($query);
 			for ($i=0;$row = $result1->fetch_row(); $i++) { 
@@ -188,6 +190,13 @@
 				$query = "delete from body where postid = ".$row[0];
 				$conn->query($query);
 			}
+			$query = "select postid from header where postid != $postid and parent = ".$post['parent'];
+			$result = $conn->query($query);
+			if ($result->num_rows == 0) {
+				$query = "update header set children = 0 where postid = ".$post['parent'];
+				check_db_err($result,$conn);
+			}
+			// delete target post
 			$query = "delete from header where postid = $postid";
 			$result = $conn->query($query);
 			$query = "delete from body where postid = $postid";
@@ -212,6 +221,26 @@
 			return false;
 		}
 
+	}
+
+	function clear_postid(){
+		// 整理文章的postid，清理没用到的postid
+		$conn = db_connect();
+		$query = "select * from header order by postid";
+		$result = $conn->query($query);
+		check_db_err($result,$conn);
+		$count = $result->num_rows;
+		for ($i=1; $post = $result->fetch_assoc(); $i++) { 
+			$query = "update header set postid = $i where postid = ".$post['postid'];
+			$conn->query($query);
+			$query = "select postid from header where parent = ".$post['postid'];
+			$result1 = $conn->query($query);
+			if ($result1->num_rows > 0) {
+				$query = "update header set parent = $i where parent = ".$post['postid'];
+				$result1 = $conn->query($query);
+				check_db_err($result1,$conn);
+			}
+		}
 	}
 
  ?>
