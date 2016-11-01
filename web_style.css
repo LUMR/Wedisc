@@ -4,4 +4,8 @@
 #post_form textarea {width: 100%;min-height: 300px;}
 #post_form table {width: 300px;}
 
+table.posts_table td {padding-right: 20px;}
+table.post td {padding-right: 10px}
+table.post th {text-align: left;}
+
 form.reply_form textarea {width: 100%;height: 200px;}

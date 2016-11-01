@@ -24,7 +24,7 @@
 		<title>$title</title>
 	</head>
 	<body>
-	<h1>Wecome To Discussion</h1>
+	<h1>LUMR的个人论坛</h1>
 	<img id=\"img_header\" src=\"./images/kokomi.jpg\">";
 	}
 
@@ -91,24 +91,43 @@
 	}
 
 
-	function display_post($post){
+	function display_post($post,$deth = 0,$floor_num = 0){
 		// 显示工具按钮
-		display_index_toolbar($post['postid']);
+		if ($deth == 0) {
+			display_index_toolbar($post['postid']);
+		}
+		$floor = ($deth == 0) ? "楼主" : "$floor_num 楼";
+		$padding = $deth*25;
 	// 显示文章的格式
 		echo "
-<table class=\"post\">
+<table class=\"post\" style=\"position:relative;left:".$padding."px;\">
 	<tr>
-		<th><b>".$post['title']."</b></th><th align=\"left\">".$post['posted']."</th>
-		<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
+		<td><b>$floor:".$post['poster']."</b></td>
 	</tr>
 	<tr>
-		<td>".$post['poster'].":</td>
+		<th>".$post['title']."</th>
+		<th>".$post['posted']."</th>
+		<td>
+		<form class=\"delete_form\" action=\"reply_or_delete.php\" method=\"post\">
+		<input type=\"hidden\" value=\"".$post['postid']."\" name=\"postid\">
+		<input type=\"submit\" name=\"Delete\" value=\"Delete\">
+		</form>
+		</td>
 	</tr>
 	<tr>
-		<td colspan=\"2\">".$post['message']."</td>
+		<td colspan=\"3\">".$post['message']."</td>
 	</tr>
 </table>
 		";
+		$child_post = get_children_post($post['postid']);
+		if ($child_post) {
+			$floor_num = 1;
+			foreach ($child_post as $postid) {
+				$child_post = get_post($postid);
+				display_post($child_post,$deth+1,$floor_num);
+				$floor_num++;
+			}
+		}
 	}
 
 	function display_reply_form($post){
@@ -127,7 +146,6 @@
 		</tr>
 		<tr>
 			<td><input type=\"submit\" name=\"Reply\" value=\"Reply\"></td>
-			<td><input type=\"submit\" name=\"Delete\" value=\"Delete\"></td>
 		</tr>
 	</table>	
 </form>

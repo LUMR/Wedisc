@@ -148,7 +148,7 @@
 	$query = "update header set children = 1 where postid = '".$post['parent']."'";
 	$result = $conn->query($query);
 	check_db_err($result,$conn);
-// check to here*******************************
+	// check to here*******************************
 	// ****************************************
 	// find our post id,note that there could be multiple headers
 	// that are the same excpt for id and probably posted time
@@ -173,5 +173,41 @@
 	}
 }
 
+	function get_children_post($postid){
+		$conn = db_connect();
+		$query = "select postid from header where parent = $postid";
+		$result = $conn->query($query);
+		check_db_err($result,$conn);
+		if ($result->num_rows>0) {
+			for ($i=0; $row = $result->fetch_row(); $i++) { 
+				$post[$i] = $row[0];
+			}
+			return $post;
+		}
+		else{
+			return false;
+		}
+
+	}
+
+	function clear_postid(){
+		// 整理文章的postid，清理没用到的postid
+		$conn = db_connect();
+		$query = "select * from header order by postid";
+		$result = $conn->query($query);
+		check_db_err($result,$conn);
+		$count = $result->num_rows;
+		for ($i=1; $post = $result->fetch_assoc(); $i++) { 
+			$query = "update header set postid = $i where postid = ".$post['postid'];
+			$conn->query($query);
+			$query = "select postid from header where parent = ".$post['postid'];
+			$result1 = $conn->query($query);
+			if ($result1->num_rows > 0) {
+				$query = "update header set parent = $i where parent = ".$post['postid'];
+				$result1 = $conn->query($query);
+				check_db_err($result1,$conn);
+			}
+		}
+	}
 
  ?>
