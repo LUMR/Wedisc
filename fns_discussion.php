@@ -194,6 +194,7 @@
 			$result = $conn->query($query);
 			if ($result->num_rows == 0) {
 				$query = "update header set children = 0 where postid = ".$post['parent'];
+				$result = $conn->query($query);
 				check_db_err($result,$conn);
 			}
 			// delete target post
