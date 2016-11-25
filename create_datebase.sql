@@ -18,6 +18,11 @@ create table body
 	message text
 	);
 
+-- 创建用户账号
+	(
+	password char(40) not null
+	)
+
 #grant select,insert,update,delete
 #on discussion.*
 #to webuse@localhost;

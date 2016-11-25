@@ -37,7 +37,29 @@
 	}
 
 	function reformat_date($date){
+		// 更改时间显示格式，暂时不改
 		return $date;
+	}
+
+	function display_user_toolbar($userid){
+		echo "
+		<div class=\"userid\">
+ 		<hr>
+ 		<h3>$userid</h3>
+ 		<hr>
+ 		</div>
+		";
+	}
+
+	function display_login_toolbar(){
+		echo "
+		<div class=\"toolbar\">
+ 		<hr>
+ 		<a href=\"login.php\"><input type=\"button\"  value=\"登陆\"></a>
+ 		<a href=\"register.php\"><input type=\"button\"  value=\"注册\"></a>
+ 		<hr>
+ 		</div>
+		";
 	}
 
 	function display_index_toolbar($postid = 0){
@@ -54,7 +76,7 @@
 			$button3_href = "?collapse=all";
 		}
 		echo "
-		<div class=\"ToolBar\">
+		<div class=\"toolbar\">
  		<hr>
  		<a href=\"new_post.php?parent=$postid\"><input type=\"button\" id=\"new_post\" value=\"$button1\"></a>
  		<a href=\"index.php?expand=all\"><input type=\"button\" id=\"expand\" value=\"$button2\"></a>

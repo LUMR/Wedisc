@@ -3,4 +3,5 @@
 	include_once('fns_discussion.php');
 	include_once('fns_output.php');
 	include_once('treenode_class.php');
+	include_once('fns_admin.php');
 ?>
