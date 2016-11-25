@@ -1,9 +1,9 @@
 <?php 
 	function check_user($userid,$pwd){
-		$conn = new db_connect();
-		$query = "select * from userdata where userid = $userid";
+		$conn = db_connect();
+		$query = "select * from userdata where userid = '$userid'";
 		$result = $conn->query($query);
-		if ($result->num_rows) {
+		if ($result->num_rows == 0) {
 			echo "<p>没有这个用户，请检查是否打错了。😒</p>";
 			echo "<a href=\"login.php\"><input type=\"button\"  value=\"返回\"></a>";
 			return false;
