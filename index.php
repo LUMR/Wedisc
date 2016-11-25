@@ -31,6 +31,13 @@
 
 	do_html_header('Discussion Posts');
 
+	if (isset($_SESSION['user'])) {
+		display_user_toolbar($_SESSION['user']);
+	}
+	else{
+		display_login_toolbar();
+	}
+
 	display_index_toolbar();
 
 	// display the tree view of conversations
